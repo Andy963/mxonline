@@ -57,7 +57,7 @@
                         {% for course_org in all_orgs.object_list %}
                             <dl class="des difdes">
                                 <dt>
-                                    <a href="org-detail-homepage.html">
+                                    <a href="{% url 'org:org_home' course_org.id %}">
                                         <img width="200" height="120" class="scrollLoading"
                                              data-url="{{ MEDIA_URL }}{{ course_org.image }}" />
                                     </a>
@@ -136,6 +136,7 @@
                     <p class="error company-tips" id="jsCompanyTips"></p>
                     <input class="btn" type="text" id="jsStayBtn" value="立即咨询"/>
                     <input type='hidden' name='csrfmiddlewaretoken' value='5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy'/>
+                    {% csrf_token %}
                 </form>
             </div>
 
@@ -157,7 +158,7 @@
         </div>
     </section>
 {% endblock content %}
-{% block custom_js %}
+{% block userask_js %}
 <script>
     $(function(){
 	    $('#jsStayBtn').on('click', function(){
@@ -168,17 +169,16 @@
 			    data:$('#jsStayForm').serialize(),
 			    async: true,
 			    success: function(data){
-				    console.log(data)
-					    alert(data)
 					    if(data.status == 'success'){
 						    $('#jsStayForm')[0].reset();
+						    $('#jsCompanyTips').html("");
 						    alert("提交成功")
 					    }else if(data.status == 'fail'){
 						    $('#jsCompanyTips').html(data.msg)
 					    }
-			    },
+			    }
 		    });
 	    });
     })
     </script>
-{% endblock custom_js %}
+{% endblock userask_js %}
