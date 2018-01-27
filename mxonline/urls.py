@@ -33,13 +33,18 @@ urlpatterns = [
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name='modify_pwd'),
 ]
 
+# 验证码
 urlpatterns += [
+    url(r'^captcha/', include('captcha.urls')),
+]
 
+# 机构相关url
+urlpatterns += [
     url(r'^org/', include('organization.urls', namespace='org')),
     #配置上传文件的访问路径
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),
 ]
-#
+# 课程相关url
 urlpatterns += [
-    url(r'^captcha/', include('captcha.urls')),
+    url(r'^course/', include('courses.urls', namespace='course')),
 ]
