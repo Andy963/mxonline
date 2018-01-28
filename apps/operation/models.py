@@ -21,7 +21,7 @@ class UserAsk(models.Model):
 class CourseComment(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name=u'用户名')
     course = models.ForeignKey(Course, verbose_name=u'课程')
-    comment = models.CharField(max_length=200, verbose_name=u'评论')
+    comments = models.CharField(max_length=200, verbose_name=u'评论')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
 
