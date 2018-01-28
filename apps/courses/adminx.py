@@ -7,9 +7,9 @@ from .models import Course, Lesson, Video, CourseResource
 import xadmin
 
 class CourseAdmin(object):
-    list_display = ['name','desc', 'detail', 'degree','learn_time', 'students', 'fav_nums', 'click_num', 'add_time']
-    search_fields= ['name','desc', 'detail', 'degree', 'students', 'fav_nums', 'click_num', 'add_time']
-    list_filter= ['name','desc', 'detail', 'degree','learn_time', 'students', 'fav_nums', 'click_num', 'add_time']
+    list_display = ['name','desc', 'detail', 'degree','learn_time', 'students', 'fav_nums', 'click_nums', 'add_time']
+    search_fields= ['name','desc', 'detail', 'degree', 'students', 'fav_nums', 'click_nums', 'add_time']
+    list_filter= ['name','desc', 'detail', 'degree','learn_time', 'students', 'fav_nums', 'click_nums', 'add_time']
 
 
 class LessonAdmin(object):
