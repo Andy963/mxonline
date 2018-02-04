@@ -14,14 +14,14 @@ from utils.mixin_utils import LoginRequiredMixin
 class CourseListView(View):
     def get(self, request):
         all_courses = Course.objects.all().order_by('-add_time')
-        hot_courses = Course.objects.all().order_by("-click_num")[:3]
+        hot_courses = Course.objects.all().order_by("-click_nums")[:3]
         # 对课程排序
         sort = request.GET.get('sort', '')
         if sort:
             if sort == 'students':
                 all_courses = all_courses.order_by('-students')
             elif sort == 'hot':
-                all_courses = all_courses.order_by('click_num')
+                all_courses = all_courses.order_by('click_nums')
 
 
         # 对课程分页
@@ -42,7 +42,7 @@ class CourseDetailView(View):
     def get(self, request, course_id):
         course = Course.objects.get(id=int(course_id))
         # 增加课程点击数
-        course.click_num += 1
+        course.click_nums += 1
         course.save()
 
         # 收藏
@@ -139,6 +139,7 @@ class AddComments(View):
             return HttpResponse('{"status":"success","msg":"评论成功"}', content_type="application/json")
         else:
             return HttpResponse('{"status":"fail","msg":"评论失败"}', content_type="application/json")
+
 class VideoPlayView(View):
 
     def get(self, request, video_id):

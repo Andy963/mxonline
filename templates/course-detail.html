@@ -43,8 +43,7 @@
                                     {% for learn_user in course.get_learn_users %}
                                         <span class="pic"><img width="40" height="40"
                                                                src="
-
-                                                                       {{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
+{{ MEDIA_URL }}{{ user_course.user.image }}"/></span>
                                     {% endfor %}
                                 </li>
                             </ul>
