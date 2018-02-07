@@ -12,6 +12,7 @@ from .forms import UserAskForm
 from .models import CourseOrg, CityDict
 from courses.models import Course
 from operation.models import UserFavorite
+from django.db.models import Q
 
 
 class OrgView(View):
@@ -23,9 +24,16 @@ class OrgView(View):
         # 课程机构
         all_orgs = CourseOrg.objects.all()
         hot_orgs = all_orgs.order_by('click_nums')[:3]
+
         # 城市
         all_citys = CityDict.objects.all()
         city_id = request.GET.get('city', '')
+
+        # 机构搜索
+        search_keywords = request.GET.get('keywords', "")
+        if search_keywords:
+            all_orgs = all_orgs.filter(Q(name__icontains=search_keywords) | Q(desc__icontains=search_keywords))
+
         # 筛选城市
         if city_id:
             all_orgs = all_orgs.filter(city=int(city_id))
@@ -198,6 +206,13 @@ class AddFavView(View):
 class TeacherListView(View):
     def get(self, request):
         all_teachers = Teacher.objects.all()
+
+        # 机构搜索
+        search_keywords = request.GET.get('keywords', "")
+        if search_keywords:
+            all_teachers = all_teachers.filter(Q(name__icontains=search_keywords) |
+                                               Q(work_company__icontains=search_keywords)|
+                                               Q(work_position__icontains=search_keywords))
 
         sort = request.GET.get('sort', "")
         if sort:
