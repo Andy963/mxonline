@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 
 import xadmin
-from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
+from users.views import LoginView, LogoutView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
 from django.views.static import serve
 from mxonline.settings import MEDIA_ROOT
 
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url(r'^login/$', LoginView.as_view(), name='login'),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name="user_active"),
     url(r'^forget/$', ForgetPwdView.as_view(), name='forget_Pwd'),
@@ -47,4 +48,9 @@ urlpatterns += [
 # 课程相关url
 urlpatterns += [
     url(r'^course/', include('courses.urls', namespace='course')),
+]
+
+# 用户相关url
+urlpatterns += [
+    url(r'^users/', include('users.urls', namespace='users')),
 ]
