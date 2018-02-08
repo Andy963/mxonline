@@ -4,7 +4,7 @@
 
 
 from django.conf.urls import url, include
-from .views import UserinfoView, UploadImageView, UpdatePwdView, SendEmailCodeView, UpdateEmailView
+from .views import UserinfoView, UploadImageView, UpdatePwdView, SendEmailCodeView, UpdateEmailView, MyCourseView
 
 urlpatterns = [
     # 课程列表页
@@ -22,6 +22,8 @@ urlpatterns = [
     # 发送邮箱验证码
     url(r'^update_email/$', UpdateEmailView.as_view(), name="update_email"),
 
+    # 发送邮箱验证码
+    url(r'^mycourse/$', MyCourseView.as_view(), name="mycourse"),
     # 我的消息
     # url(r'^my_message/$', MyMessageView.as_view(), name='my_message'),
 ]

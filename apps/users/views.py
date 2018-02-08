@@ -13,7 +13,7 @@ from .models import UserProfile, EmailVerifyRecord
 from forms import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm, UploadImageForm, UserInfoForm
 from utils.email_send import send_register_email
 from utils.mixin_utils import LoginRequiredMixin
-
+from operation.models import UserCourse
 # Create your views here.
 class CustomBackend(ModelBackend):
     def authenticate(self, username=None, password=None, **kwargs):
@@ -216,6 +216,15 @@ class UpdateEmailView(LoginRequiredMixin, View):
         else:
             return HttpResponse({ "code":"邮箱验证码出错!"}, content_type="application/json")
 
+class MyCourseView(LoginRequiredMixin, View):
+    """
+    我的课程
+    """
+    def get(self, request):
+        user_courses =UserCourse.objects.filter(user=request.user)
+        return render(request, 'usercenter-mycourse.html',{
+            'user_courses':user_courses,
+        })
 
 # 函数实现的登陆后台验证，推荐用上面的类实现
 # def user_login(request):
